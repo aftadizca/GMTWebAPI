@@ -23,9 +23,9 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<DatabaseContext>(opt => opt.UseInMemoryDatabase("GMT_Database"));
+            services.AddDbContext<DatabaseContext>(opt => opt.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\ASPNET_PROJECT\\GMTAPI\\database.mdf;Integrated Security=True;Connect Timeout=30"));
             services.AddCors(ops => ops.AddPolicy(MyAllowSpecificOrigins, builder => {
-                builder.WithOrigins("http://localhost:3000").AllowAnyMethod();
+                builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowAnyMethod();
             }
             ));
             services.AddSwaggerGen(c =>
@@ -41,6 +41,7 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             else
             {
@@ -51,13 +52,14 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
+
+            app.UseMvc();
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
-            app.UseMvc();
 
         }
     }

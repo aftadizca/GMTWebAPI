@@ -9,8 +9,12 @@ namespace WebApi.Helper
     {
         public static string CreateId(string prefix, int number)
         {
-            var id = $@"{prefix}{String.Format("{0:00000}", number)}";
+            var id = $@"{prefix}{String.Format("{0:0000000}", number)}";
             return id;
+        }
+        public static string IncId(string id)
+        {
+            return (Int64.Parse(id) + 1).ToString();
         }
     }
 }

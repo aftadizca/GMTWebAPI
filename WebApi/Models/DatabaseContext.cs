@@ -15,6 +15,8 @@ namespace WebApi.Models
 
         public DbSet<Material> Materials {set; get;}
         public DbSet<StatusQC> StatusQCs { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Stok> Stoks { get; set; }
 
     }
 }

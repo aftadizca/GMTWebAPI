@@ -1,20 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Helper;
 using WebApi.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
-    [ApiConventionType(typeof(DefaultApiConventions))]
     public class MaterialController : Controller
     {
         private readonly DatabaseContext _db;
@@ -24,36 +19,15 @@ namespace WebApi.Controllers
         {
             _db = db;
             _logger = logger;
-            if(_db.Materials.Count() == 0)
+            if (_db.Materials.Count() == 0)
             {
-                var IdGen = new IdGen();
                 var count = 0;
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 1", Suplier = "SUPRACOR", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 3", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 1", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 3", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 1", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 3", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 1", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 3", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 1", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 3", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 1", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 3", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 1", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "DUS JDO 3", Suplier = "SURINDO", Unit = "pcs", Type = "dus" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "SEAL JDO 5", Suplier = "AMCOR", Unit = "roll", Type = "seal" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "SEAL JDO 7", Suplier = "AMCOR", Unit = "roll", Type = "seal" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "SEAL JDO 9", Suplier = "AMCOR", Unit = "roll", Type = "seal" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "SEAL JBC 4", Suplier = "AMCOR", Unit = "roll", Type = "seal" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "SEAL JBC 8", Suplier = "AMCOR", Unit = "roll", Type = "seal" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3000", ++count), Name = "SEAL JBC 9", Suplier = "AMCOR", Unit = "roll", Type = "seal" });
+                _db.Materials.Add(new Material { ID = IdGen.CreateId("3", ++count), Name = "DUS JDO 1", Suplier = "SUPRACOR", Unit = "PCS", Type = "DUS" });
+                _db.Materials.Add(new Material { ID = IdGen.CreateId("3", ++count), Name = "DUS JDO 3", Suplier = "SUPRACOR", Unit = "PCS", Type = "DUS" });
+                _db.Materials.Add(new Material { ID = IdGen.CreateId("3", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "PCS", Type = "DUS" });
+                _db.Materials.Add(new Material { ID = IdGen.CreateId("3", ++count), Name = "DUS JDO 7", Suplier = "SURINDO", Unit = "PCS", Type = "DUS" });
+                _db.Materials.Add(new Material { ID = IdGen.CreateId("3", ++count), Name = "DUS JDO 9", Suplier = "SURINDO", Unit = "PCS", Type = "DUS" });
+                _db.Materials.Add(new Material { ID = IdGen.CreateId("3", ++count), Name = "SEAL JDO 3", Suplier = "SURINDO", Unit = "ROLL", Type = "SEAL" });
                 _db.SaveChanges();
                 _logger.LogInformation("Created new mock material");
             }
@@ -61,8 +35,8 @@ namespace WebApi.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public  ActionResult<Material> GetAll()
+        [ProducesResponseType(typeof(Material),StatusCodes.Status200OK)]
+        public ActionResult<Material> Get()
         {
             var item = _db.Materials.Where(x => x.IsActive == true);
             return Ok(item);
@@ -70,14 +44,16 @@ namespace WebApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public  ActionResult<Material> GetById(string id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Material> Get(string id)
         {
-            var result = _db.Materials.FirstOrDefault(x => x.Id == id && x.IsActive == true);
+            var result = _db.Materials.FirstOrDefault(x => x.ID == id && x.IsActive == true);
             if (result == null)
             {
                 return NotFound(new { Error = "Material ID not found" });
             }
-            return  Ok(result);
+            return Ok(result);
         }
 
         // POST api/<controller>
@@ -86,54 +62,57 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Material>> Post([FromBody] Material material)
         {
-            if (_db.Materials.Find(material.Id) != null)
+            _logger.LogDebug(material.Name);
+            if (_db.Materials.Where(m=>m.Name.ToLower() == material.Name.ToLower() && m.Suplier.ToLower() == material.Suplier.ToLower()).Count()>0)
             {
-                return BadRequest(new { Error = "Material ID has been used!" });
+                return BadRequest(new { Error = "Material already exists!"});
             }
+            material.ID = IdGen.CreateId("3", _db.Materials.Count()+1);
             _db.Materials.Add(material);
             await _db.SaveChangesAsync();
-            return CreatedAtAction (nameof(GetById), new{id = material.Id }, material);
+            return CreatedAtAction(nameof(Get), new { id = material.ID }, material);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(Material),StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult Put(string id, [FromBody]Material material)
         {
-            var result =_db.Materials.First(x=>x.Id == id);
-            if(result != null && material.Id == id)
-            {                                                            
+            var result = _db.Materials.First(x => x.ID == id);
+            if (result != null && material.ID == id)
+            {
                 result.Name = material.Name;
                 result.Suplier = material.Suplier;
                 result.Unit = material.Unit;
                 result.Type = material.Type;
+                result.ModifiedDate = DateTime.Now;
                 _db.SaveChangesAsync();
-                return Ok();
+                return Ok(result);
             }
             else
             {
                 return BadRequest();
             }
-            
+
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Delete(string id)
         {
-            var result = _db.Materials.First(x=> x.Id.Equals(id));
+            var result = _db.Materials.FirstOrDefault(x => x.ID.Equals(id));
             if (result != null)
             {
-                _db.Materials.Remove(result);
+                result.IsActive = false;
                 _db.SaveChanges();
-                Request.Headers.Add("msg", "Material deleted!");
                 return Ok();
-            }  
-            
-            return BadRequest();
-            
+            }
+
+            return NotFound(new { Error = "Material ID not found" });
+
         }
     }
 }
-                                                    
