@@ -7,8 +7,8 @@ namespace WebApi.Models
 {
     public class LocationStock
     {
+        public int Id { get; set; }
         public string Location { get; set; }
-        public string TraceID { get; set; }
-        public string MaterialName { get; set; }
+        public string TraceID { get; set; } = "";
     }
 }

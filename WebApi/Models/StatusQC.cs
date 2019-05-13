@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class StatusQC
+    public class StatusQC : BaseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Name { get; set; }
 
         [JsonIgnore]

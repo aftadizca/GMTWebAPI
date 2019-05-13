@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApi.Helper;
 using WebApi.Models;
 
 namespace WebApi.Controllers
@@ -20,15 +21,42 @@ namespace WebApi.Controllers
             _context = context;
             if(_context.Locations.Count() == 0)
             {
-                _context.Locations.Add(new Location { Name = "A1A1" });
-                _context.Locations.Add(new Location { Name = "A1A2" });
-                _context.Locations.Add(new Location { Name = "A1A3" });
-                _context.Locations.Add(new Location { Name = "A1A4" });
-                _context.Locations.Add(new Location { Name = "A1A5" });
-                _context.Locations.Add(new Location { Name = "A1A6" });
+                int c = -1;
+                for(int i = 0; i<26; i++)
+                {
+                    for (int j = 0; j < 15; j++)
+                    {
+                        _context.Locations.AddAsync(new Location {Id=IdGen.CreateId(++c), Name = $"A{String.Format("{0:00}",i)}A{String.Format("{0:00}", j)}" });
+                        _context.Locations.AddAsync(new Location { Id = IdGen.CreateId(++c), Name = $"A{String.Format("{0:00}",i)}B{String.Format("{0:00}", j)}" });
+                    }
+                }
                 _context.SaveChanges();
             }
         }
+
+        //// GET: api/Location
+        //[HttpGet("/api/locationmap")]
+        //public ActionResult<IEnumerable<LocationStock>> GetLocationMaps()
+        //{
+        //    var locstok = new List<LocationStock>();
+        //    var location = _context.Locations.Select(x=>x);
+        //    foreach (var loc in location)
+        //    {
+        //        var stok = _context.Stoks.FirstOrDefault(x => x.LocationID == loc.Id);
+        //        if (stok != null)
+        //        {
+        //            var material = _context.Materials.FirstOrDefault(x => x.Id == stok.MaterialID);
+        //            locstok.Add( new LocationStock { Id = loc.Id, Location= loc.Name, TraceID= stok.Id});
+        //        }
+        //        else
+        //        {
+        //            locstok.Add(new LocationStock { Id = loc.Id, Location = loc.Name, TraceID = "" });
+        //        }
+
+        //    }
+
+        //    return locstok;
+        //}
 
         // GET: api/Location
         [HttpGet]
@@ -53,7 +81,7 @@ namespace WebApi.Controllers
 
         // PUT: api/Location/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int id, Location location)
+        public async Task<IActionResult> PutLocation(string id, Location location)
         {
             if (id != location.Id)
             {
@@ -107,7 +135,7 @@ namespace WebApi.Controllers
             return location;
         }
 
-        private bool LocationExists(int id)
+        private bool LocationExists(string id)
         {
             return _context.Locations.Any(e => e.Id == id);
         }

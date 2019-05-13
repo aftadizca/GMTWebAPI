@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO.Compression;
+using WebApi.IRepository;
 using WebApi.Models;
+using WebApi.Repository;
 
 namespace WebApi
 {
@@ -22,12 +26,26 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCompression(x =>
+            {
+                x.Providers.Add<BrotliCompressionProvider>();
+                x.Providers.Add<GzipCompressionProvider>();
+                x.EnableForHttps = true;
+            });
+            services.Configure<BrotliCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Optimal;
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<DatabaseContext>(opt => opt.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\ASPNET_PROJECT\\GMTAPI\\database.mdf;Integrated Security=True;Connect Timeout=30"));
-            services.AddCors(ops => ops.AddPolicy(MyAllowSpecificOrigins, builder => {
-                builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowAnyMethod();
+            services.AddDbContext<DatabaseContext>(opt => opt.UseInMemoryDatabase("MyDB"));
+            services.AddScoped(typeof(IGMTRepository<>), typeof(Repository<>));
+            services.AddCors(ops => ops.AddPolicy(MyAllowSpecificOrigins, builder =>
+            {
+                builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowAnyMethod();//.WithExposedHeaders("myheader");
             }
             ));
+            
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "GMT API", Version = "v1" });
@@ -49,15 +67,12 @@ namespace WebApi
             }
 
             app.UseCors(MyAllowSpecificOrigins);
-
             app.UseHttpsRedirection();
-
-
+            app.UseResponseCompression();
             app.UseMvc();
-
             app.UseSwagger();
-
-            app.UseSwaggerUI(c => {
+            app.UseSwaggerUI(c =>
+            {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 

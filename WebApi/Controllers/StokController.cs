@@ -1,10 +1,12 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApi.CostumModel;
 using WebApi.Helper;
 using WebApi.Models;
 
@@ -19,10 +21,185 @@ namespace WebApi.Controllers
         public StokController(DatabaseContext context)
         {
             _context = context;
-            if (_context.Stoks.Count() == 0)
+            if (!_context.Stoks.Any())
             {
                 int i = 0;
-                _context.Stoks.Add(new Stok {TraceID=IdGen.CreateId("TRC",++i), MaterialID = "30000002",LocationID=1,ComingDate=DateTime.Now,ExpiredDate=DateTime.Now.AddYears(2),Lot="1235545",StatusQCID=2,QTY=1400 });
+                _context.AddRangeAsync(
+                    new Stok { Id = IdGen.CreateId("TRC", i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", LocationID = "1", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "2", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000003", LocationID = "2", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "2", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", LocationID = "3", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "2", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", LocationID = "4", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "2", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000004", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 }
+                );
                 _context.SaveChanges();
             }
         }
@@ -49,15 +226,16 @@ namespace WebApi.Controllers
         }
 
         // PUT: api/Stok/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutStok(string id, Stok stok)
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> PutStok([FromBody] List<Stok> stoks)
         {
-            if (id != stok.TraceID)
+            foreach (var stok in stoks)
             {
-                return BadRequest();
+                _context.Entry(stok).State = EntityState.Modified;
             }
-
-            _context.Entry(stok).State = EntityState.Modified;
 
             try
             {
@@ -65,13 +243,16 @@ namespace WebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StokExists(id))
+                foreach (var stok in stoks)
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    if (!StokExists(stok.Id))
+                    {
+                        return NotFound("Id didn't match!");
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
 
@@ -80,12 +261,37 @@ namespace WebApi.Controllers
 
         // POST: api/Stok
         [HttpPost]
-        public async Task<ActionResult<Stok>> PostStok(Stok stok)
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(List<Stok>),StatusCodes.Status201Created)]
+        public async Task<ActionResult<NewStok>> PostStok(NewStok newStok)
         {
-            _context.Stoks.Add(stok);
+            List<Stok> stok = new List<Stok>();
+            if (newStok.Qty <= newStok.Pallet)
+            {
+                stok.Add(new Stok {Id=IdGen.CreateId("TRC",_context.Stoks.Count()+1), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = newStok.Qty });
+                _context.Stoks.Add(stok[0]);
+            }else if(newStok.Qty > newStok.Pallet)
+            {
+                int stokCount = newStok.Qty / newStok.Pallet;
+                int sisa = newStok.Qty % newStok.Pallet;
+                for(int i =1; i <= stokCount; i++)
+                {
+                    stok.Add(new Stok { Id = IdGen.CreateId("TRC", _context.Stoks.Count() + i), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = newStok.Pallet });
+                }
+                if (sisa != 0)
+                {
+                    stok.Add(new Stok { Id = IdGen.CreateId("TRC", _context.Stoks.Count()+stokCount + 1), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = sisa });
+                }
+
+            }
+            else
+            {
+                return BadRequest();
+            }
+            _context.Stoks.AddRange(stok);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStok", new { id = stok.TraceID }, stok);
+            return StatusCode(201, stok);
         }
 
         // DELETE: api/Stok/5
@@ -106,7 +312,7 @@ namespace WebApi.Controllers
 
         private bool StokExists(string id)
         {
-            return _context.Stoks.Any(e => e.TraceID == id);
+            return _context.Stoks.Any(e => e.Id == id);
         }
     }
 }

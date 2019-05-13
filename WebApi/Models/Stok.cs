@@ -8,17 +8,13 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class Stok
+    public class Stok : BaseEntity
     {
-        
-        [ForeignKey("Location")]
-        public int LocationID { get; set; }
-        [Key]
-        public string TraceID { get; set; }
-        public string MaterialID { get; set; }
-        public int StatusQCID { get; set; }
+        public string LocationID { get; set; } = "0";
+        public string MaterialID { get; set; } 
+        public string StatusQCID { get; set; } = "1";
         public string Lot { get; set; }
-        public DateTime ComingDate { get; set; }
+        public DateTime ComingDate { get; set; } = DateTime.Now;
         public DateTime ExpiredDate { get; set; }
         public int QTY { get; set; }
 
@@ -28,5 +24,7 @@ namespace WebApi.Models
         public Material Material { get; set; }
         [JsonIgnore]
         public Location Location { get; set; }
+        [JsonIgnore]
+        public ICollection<StokMaterialOut> StokMaterialOut { get; set; }
     }
 }

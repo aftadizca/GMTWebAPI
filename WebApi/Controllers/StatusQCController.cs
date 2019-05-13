@@ -21,10 +21,10 @@ namespace WebApi.Controllers
             _context = context;
             if(_context.StatusQCs.Count() == 0)
             {
-                _context.StatusQCs.Add(new StatusQC { Name = "UNAPPROVE" });
-                _context.StatusQCs.Add(new StatusQC { Name = "PASS" });
-                _context.StatusQCs.Add(new StatusQC { Name = "QUARANTINE" });
-                _context.StatusQCs.Add(new StatusQC { Name = "BLOCK" });
+                _context.StatusQCs.Add(new StatusQC {Id = "1", Name = "UNAPPROVE" });
+                _context.StatusQCs.Add(new StatusQC { Id = "2", Name = "PASS" });
+                _context.StatusQCs.Add(new StatusQC { Id = "3", Name = "QUARANTINE" });
+                _context.StatusQCs.Add(new StatusQC { Id = "4", Name = "BLOCK" });
                 _context.SaveChanges();
             }
         }
@@ -38,7 +38,7 @@ namespace WebApi.Controllers
 
         // GET: api/StatusQC/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<StatusQC>> GetStatusQC(int id)
+        public async Task<ActionResult<StatusQC>> GetStatusQC(string id)
         {
             var statusQC = await _context.StatusQCs.FindAsync(id);
 
@@ -106,7 +106,7 @@ namespace WebApi.Controllers
         //    return statusQC;
         //}
 
-        private bool StatusQCExists(int id)
+        private bool StatusQCExists(string id)
         {
             return _context.StatusQCs.Any(e => e.Id == id);
         }
