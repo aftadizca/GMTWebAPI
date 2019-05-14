@@ -24,14 +24,14 @@ namespace WebApi.Repository
             throw new NotImplementedException();
         }
 
-        public T Get(string id)
+        public async Task<T> Get(string id)
         {
-            throw new NotImplementedException();
+            return await entities.FindAsync(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public  IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return  entities.AsEnumerable();
         }
 
         public bool IsExist(string id)
@@ -51,9 +51,18 @@ namespace WebApi.Repository
             return true;
         }
 
-        public ActionResult Put(T t)
+        public bool Put(T t)
         {
-            throw new NotImplementedException();
+            if (!IsExist(t.Id))
+            {
+                return false;
+            }
+            else
+            {
+                t.ModifiedDate = DateTime.Now;
+                context.Entry(t).State = EntityState.Modified;
+                return true;
+            }
         }
 
         public async Task Save()

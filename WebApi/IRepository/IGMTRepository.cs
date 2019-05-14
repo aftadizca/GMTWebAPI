@@ -12,7 +12,7 @@ namespace WebApi.IRepository
 
         IEnumerable<T> GetAll();
 
-        T Get(string id);
+        Task<T> Get(string id);
 
         T Add(T t);
 
@@ -20,7 +20,7 @@ namespace WebApi.IRepository
 
         bool Delete(List<T> ts);
 
-        ActionResult Put(T t);
+        bool Put(T t);
 
         bool IsExist(string id);
 
