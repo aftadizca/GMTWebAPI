@@ -64,7 +64,7 @@ namespace WebApi.Controllers
         {
             if (_db.Materials.Any(m => m.Name.ToLower() == material.Name.ToLower() && m.Suplier.ToLower() == material.Suplier.ToLower() && m.IsDeleted == false))
             {
-                return BadRequest(new { Error = "Material already exists!" });
+                return BadRequest("Material with current Name & Suplier already exists!");
             }
             material.Id = IdGen.CreateId("3", _db.Materials.Count());
             _db.Materials.Add(material);
@@ -74,19 +74,25 @@ namespace WebApi.Controllers
 
         // PUT api/<controller>/5
         [HttpPut]
-        [ProducesResponseType(typeof(Material), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Put([FromBody]Material material)
+        [ProducesResponseType(typeof(Material), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Put([FromBody]Material material)
         {
             if (_materialRepo.Put(material))
             {
-                _materialRepo.Save();
-                return NoContent();
+                try
+                {
+                    await _materialRepo.Save();
+                }
+                catch (System.Exception)
+                {
+                    return BadRequest("Item not deleted");
+                }
+                return Ok(material);
             }
-            else
-            {
-                return NotFound("ID didn't match!!");
-            }
+
+            return NotFound("Id didn't match!!");
+            
         }
 
         [HttpDelete]
@@ -99,11 +105,12 @@ namespace WebApi.Controllers
             {
                 return NotFound("Id not found!");
             }
+
             try
             {
                 await _materialRepo.Save();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (System.Exception)
             {
                 return BadRequest("Item not deleted");
             }

@@ -10,7 +10,7 @@ namespace WebApi.IRepository
     public interface IGMTRepository<T> where T : BaseEntity
     {
 
-        IEnumerable<T> GetAll();
+        IQueryable<T> GetAll();
 
         Task<T> Get(string id);
 

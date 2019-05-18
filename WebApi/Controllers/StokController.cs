@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.CostumModel;
 using WebApi.Helper;
+using WebApi.IRepository;
 using WebApi.Models;
 
 namespace WebApi.Controllers
@@ -17,10 +18,12 @@ namespace WebApi.Controllers
     public class StokController : ControllerBase
     {
         private readonly DatabaseContext _context;
+        private readonly IGMTRepository<Stok> _stokRepo;
 
-        public StokController(DatabaseContext context)
+        public StokController(DatabaseContext context, IGMTRepository<Stok> stokRepo)
         {
             _context = context;
+            _stokRepo = stokRepo;
             if (!_context.Stoks.Any())
             {
                 int i = 0;
@@ -35,9 +38,9 @@ namespace WebApi.Controllers
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
-                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
-                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
-                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000003", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000003", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000002", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
@@ -198,7 +201,7 @@ namespace WebApi.Controllers
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
                     new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 },
-                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000001", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 }
+                    new Stok { Id = IdGen.CreateId("TRC", ++i), MaterialID = "30000005", ComingDate = DateTime.Now, ExpiredDate = DateTime.Now.AddYears(2), Lot = "1235545", StatusQCID = "1", QTY = 1400 }
                 );
                 _context.SaveChanges();
             }
@@ -206,81 +209,82 @@ namespace WebApi.Controllers
 
         // GET: api/Stok
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Stok>>> GetStoks()
+        public ActionResult<IEnumerable<Stok>> GetStoks()
         {
-            return await _context.Stoks.ToListAsync();
+            return Ok(_stokRepo.GetAll()
+                .Include(stok => stok.Material)
+                .Include(stok=> stok.StatusQC)
+                .Include(stok => stok.Location)
+                .ToList());
         }
 
         // GET: api/Stok/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Stok>> GetStok(string id)
         {
-            var stok = await _context.Stoks.FindAsync(id);
-
-            if (stok == null)
+            var result = await _stokRepo.Get(id);
+            if (result == null)
             {
-                return NotFound();
+                return NotFound("Material not found");
             }
-
-            return stok;
+            return Ok(result);
         }
 
         // PUT: api/Stok/5
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PutStok([FromBody] List<Stok> stoks)
         {
-            foreach (var stok in stoks)
+            if (_stokRepo.IsExists(stoks))
             {
-                _context.Entry(stok).State = EntityState.Modified;
+                foreach (var stok in stoks)
+                {
+                    _stokRepo.Put(stok);
+                }
+
+            }
+            else
+            {
+                return NotFound("Stok not found");
             }
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _stokRepo.Save();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
-                foreach (var stok in stoks)
-                {
-                    if (!StokExists(stok.Id))
-                    {
-                        return NotFound("Id didn't match!");
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                return BadRequest("Stok not saved");
             }
 
-            return NoContent();
+            return Ok(stoks);
         }
 
         // POST: api/Stok
         [HttpPost]
         [ProducesDefaultResponseType]
-        [ProducesResponseType(typeof(List<Stok>),StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(List<Stok>), StatusCodes.Status201Created)]
         public async Task<ActionResult<NewStok>> PostStok(NewStok newStok)
         {
             List<Stok> stok = new List<Stok>();
             if (newStok.Qty <= newStok.Pallet)
             {
-                stok.Add(new Stok {Id=IdGen.CreateId("TRC",_context.Stoks.Count()+1), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = newStok.Qty });
+                stok.Add(new Stok { Id = IdGen.CreateId("TRC", _context.Stoks.Count() + 1), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = newStok.Qty });
                 _context.Stoks.Add(stok[0]);
-            }else if(newStok.Qty > newStok.Pallet)
+            }
+            else if (newStok.Qty > newStok.Pallet)
             {
                 int stokCount = newStok.Qty / newStok.Pallet;
                 int sisa = newStok.Qty % newStok.Pallet;
-                for(int i =1; i <= stokCount; i++)
+                for (int i = 0; i < stokCount; i++)
                 {
                     stok.Add(new Stok { Id = IdGen.CreateId("TRC", _context.Stoks.Count() + i), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = newStok.Pallet });
                 }
                 if (sisa != 0)
                 {
-                    stok.Add(new Stok { Id = IdGen.CreateId("TRC", _context.Stoks.Count()+stokCount + 1), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = sisa });
+                    stok.Add(new Stok { Id = IdGen.CreateId("TRC", _context.Stoks.Count() + stokCount), Lot = newStok.Lot, ExpiredDate = newStok.ExpiredDate, MaterialID = newStok.MaterialID, QTY = sisa });
                 }
 
             }
@@ -308,11 +312,6 @@ namespace WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return stok;
-        }
-
-        private bool StokExists(string id)
-        {
-            return _context.Stoks.Any(e => e.Id == id);
         }
     }
 }

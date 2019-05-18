@@ -19,6 +19,6 @@ namespace WebApi.Models
         public string Type { get; set; }
 
         [JsonIgnore]
-        public ICollection<Stok> Stoks { get; set; }
+        public List<Stok> Stoks { get; set; }
     }
 }

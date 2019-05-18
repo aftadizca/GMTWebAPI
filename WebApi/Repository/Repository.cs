@@ -29,9 +29,9 @@ namespace WebApi.Repository
             return await entities.FindAsync(id);
         }
 
-        public  IEnumerable<T> GetAll()
+        public  IQueryable<T> GetAll()
         {
-            return  entities.AsEnumerable();
+            return  entities.AsQueryable();
         }
 
         public bool IsExist(string id)
