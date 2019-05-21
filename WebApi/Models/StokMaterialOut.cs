@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Models
 {
@@ -6,7 +7,6 @@ namespace WebApi.Models
     {
         public string StockID { get; set; }
         public string MaterialOutID { get; set; }
-        public int Qty { get; set; }
         
 
         [JsonIgnore]

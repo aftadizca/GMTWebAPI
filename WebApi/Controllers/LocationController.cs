@@ -19,19 +19,6 @@ namespace WebApi.Controllers
         public LocationController(DatabaseContext context)
         {
             _context = context;
-            if(_context.Locations.Count() == 0)
-            {
-                int c = -1;
-                for(int i = 0; i<26; i++)
-                {
-                    for (int j = 0; j < 15; j++)
-                    {
-                        _context.Locations.AddAsync(new Location {Id=IdGen.CreateId(++c), Name = $"A{String.Format("{0:00}",i)}A{String.Format("{0:00}", j)}" });
-                        _context.Locations.AddAsync(new Location { Id = IdGen.CreateId(++c), Name = $"A{String.Format("{0:00}",i)}B{String.Format("{0:00}", j)}" });
-                    }
-                }
-                _context.SaveChanges();
-            }
         }
 
         //// GET: api/Location

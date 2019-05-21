@@ -20,18 +20,6 @@ namespace WebApi.Controllers
         {
             _db = db;
             _materialRepo = materialRepo;
-
-            if (_db.Materials.Count() == 0)
-            {
-                var count = _db.Materials.Count();
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3", count), Name = "DUS JDO 1", Suplier = "SUPRACOR", Unit = "PCS", Type = "DUS" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3", ++count), Name = "DUS JDO 3", Suplier = "SUPRACOR", Unit = "PCS", Type = "DUS" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3", ++count), Name = "DUS JDO 5", Suplier = "SURINDO", Unit = "PCS", Type = "DUS" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3", ++count), Name = "DUS JDO 7", Suplier = "SURINDO", Unit = "PCS", Type = "DUS" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3", ++count), Name = "DUS JDO 9", Suplier = "SURINDO", Unit = "PCS", Type = "DUS" });
-                _db.Materials.Add(new Material { Id = IdGen.CreateId("3", ++count), Name = "SEAL JDO 3", Suplier = "SURINDO", Unit = "ROLL", Type = "SEAL" });
-                _db.SaveChanges();
-            }
         }
 
         // GET: api/<controller>

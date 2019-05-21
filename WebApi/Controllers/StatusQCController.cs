@@ -19,14 +19,6 @@ namespace WebApi.Controllers
         public StatusQCController(DatabaseContext context)
         {
             _context = context;
-            if(_context.StatusQCs.Count() == 0)
-            {
-                _context.StatusQCs.Add(new StatusQC {Id = "1", Name = "UNAPPROVE" });
-                _context.StatusQCs.Add(new StatusQC { Id = "2", Name = "PASS" });
-                _context.StatusQCs.Add(new StatusQC { Id = "3", Name = "QUARANTINE" });
-                _context.StatusQCs.Add(new StatusQC { Id = "4", Name = "BLOCK" });
-                _context.SaveChanges();
-            }
         }
 
         // GET: api/StatusQC

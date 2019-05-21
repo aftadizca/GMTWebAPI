@@ -14,8 +14,10 @@ namespace WebApi.Models
         [Required]
         public string Suplier { get; set; }
         [Required]
+        [StringLength(10)]
         public string Unit { get; set; }
         [Required]
+        [StringLength(10)]
         public string Type { get; set; }
 
         [JsonIgnore]
