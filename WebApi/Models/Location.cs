@@ -16,7 +16,7 @@ namespace WebApi.Models
 
 
         [JsonIgnore]
-        public Stok Stok { get; set; }
+        public ICollection<Stok> Stok { get; set; }
 
     }
 }

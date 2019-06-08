@@ -12,6 +12,6 @@ namespace WebApi.Models
         public string ReceiverName { get; set; }
         public string ReceiverDepartement { get; set; }
 
-        public ICollection<StokMaterialOut> StokMaterialOut { get; set; }
+        public List<StokMaterialOut> StokMaterialOut { get; set; }
     }
 }

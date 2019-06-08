@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Models;
 
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190606040329_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,7 +312,9 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationID");
+                    b.HasIndex("LocationID")
+                        .IsUnique()
+                        .HasFilter("[LocationID] IS NOT NULL");
 
                     b.HasIndex("MaterialID");
 
@@ -385,8 +389,8 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Models.Stok", b =>
                 {
                     b.HasOne("WebApi.Models.Location", "Location")
-                        .WithMany("Stok")
-                        .HasForeignKey("LocationID");
+                        .WithOne("Stok")
+                        .HasForeignKey("WebApi.Models.Stok", "LocationID");
 
                     b.HasOne("WebApi.Models.Material", "Material")
                         .WithMany("Stoks")

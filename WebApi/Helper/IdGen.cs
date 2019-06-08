@@ -7,6 +7,10 @@ namespace WebApi.Helper
 {
     public class IdGen
     {
+        public static readonly string STOK_PREFIX = "ST";
+        public static readonly string OUT_PREFIX = "OUT";
+        public static readonly string MATERIAL_PREFIX = "MT";
+        
         public static string CreateId(string prefix, int number)
         {
             try

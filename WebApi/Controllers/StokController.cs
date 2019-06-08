@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApi.CostumModel;
 using WebApi.Helper;
 using WebApi.IRepository;
@@ -31,6 +30,41 @@ namespace WebApi.Controllers
         public ActionResult<IEnumerable<Stok>> GetStoks()
         {
             return Ok(_stokRepo.GetAll());
+        }
+
+        [HttpGet("/api/graph")]
+        public ActionResult Graph()
+        {
+            Dictionary<string, int[]> dataInc = new Dictionary<string, int[]>();
+            Dictionary<string, int[]> dataOut = new Dictionary<string, int[]>();
+            dataInc.Add("DUS", new int[12]);
+            dataInc.Add("SEAL", new int[12]);
+            dataInc.Add("CUP",new int[12]);
+
+            dataOut.Add("DUS", new int[12]);
+            dataOut.Add("SEAL", new int[12]);
+            dataOut.Add("CUP",new int[12]);
+
+            var query = _context.Stoks.Join(_context.Materials,
+                    stok => stok.MaterialID,
+                    material => material.Id,
+                    (stok, material) => new { Type = material.Type, IsOut = stok.IsOut, Date = stok.ComingDate.Month, IsDeleted = stok.IsDeleted, qty = stok.QTY })
+                    .Where(x=> x.IsDeleted == false);
+            var incQ = query.Where(x => x.IsOut == false);
+            var outQ = query.Where(x => x.IsOut == true);
+
+            for (int i = 1; i<13; i++)
+            { 
+                dataInc["DUS"][i - 1] = incQ.Where(x=> x.Type == "DUS" && x.Date == i).Sum(x=> x.qty);
+                dataInc["SEAL"][i - 1] = incQ.Where(x => x.Type == "SEAL" && x.Date == i).Sum(x => x.qty);
+                dataInc["CUP"][i - 1] = incQ.Where(x => x.Type == "CUP" && x.Date == i).Sum(x => x.qty);
+
+                dataOut["DUS"][i - 1] = outQ.Where(x=> x.Type == "DUS" && x.Date == i).Sum(x => x.qty);
+                dataOut["SEAL"][i - 1] = outQ.Where(x => x.Type == "SEAL" && x.Date == i).Sum(x => x.qty);
+                dataOut["CUP"][i - 1] = outQ.Where(x => x.Type == "CUP" && x.Date == i).Sum(x => x.qty);
+            }
+
+            return Ok(new { Incoming = dataInc, Outcoming = dataOut });
         }
 
         // GET: api/Stok/5
@@ -114,19 +148,28 @@ namespace WebApi.Controllers
         }
 
         // DELETE: api/Stok/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Stok>> DeleteStok(string id)
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<Stok>> DeleteStok([FromBody]List<Stok> stoks)
         {
-            var stok = await _context.Stoks.FindAsync(id);
-            if (stok == null)
+            if (!_stokRepo.Delete(stoks))
             {
-                return NotFound();
+                return NotFound("Id not found!");
             }
 
-            _context.Stoks.Remove(stok);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _stokRepo.Save();
+            }
+            catch (System.Exception)
+            {
+                return BadRequest("Item not deleted");
+            }
 
-            return stok;
+            return NoContent();
         }
     }
 }

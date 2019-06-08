@@ -54,7 +54,7 @@ namespace WebApi.Controllers
             {
                 return BadRequest("Material with current Name & Suplier already exists!");
             }
-            material.Id = IdGen.CreateId("3", _db.Materials.Count());
+            material.Id = IdGen.CreateId(IdGen.MATERIAL_PREFIX, _db.Materials.Count());
             _db.Materials.Add(material);
             await _materialRepo.Save();
             return CreatedAtAction(nameof(Get), new { id = material.Id }, material);

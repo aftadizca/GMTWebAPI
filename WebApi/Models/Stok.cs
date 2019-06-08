@@ -8,7 +8,7 @@ namespace WebApi.Models
     public class Stok : BaseEntity
     {
         //foreign key
-        public string LocationID { get; set; } = "0";
+        public string LocationID { get; set; } = null;
         public string MaterialID { get; set; }
         public string StatusQCID { get; set; } = "1";
 
